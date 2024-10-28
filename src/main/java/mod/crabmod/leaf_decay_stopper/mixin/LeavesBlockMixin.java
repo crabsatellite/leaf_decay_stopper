@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
 
-  @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true, remap = false)
+  @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
   public void onRandomTick(
       BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
     if (!Config.isDecayEnabledForDimension(world)) {
