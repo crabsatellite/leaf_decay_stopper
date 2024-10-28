@@ -16,7 +16,7 @@ The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimen
 - **Instant Feedback**: Immediate feedback lets you know if your desired state has been set.
 - **Default Decay Control**: By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.
 
-### Commands
+### Commands (OP level 2 needed)
 
 The mod introduces a command, `/setleavesdecay`, to toggle leaf decay status:
 
@@ -89,7 +89,7 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 - **即时反馈**：指令执行后立即获得反馈，显示当前状态是否已更改。
 - **默认状态**：主世界、下界和末地维度中的树叶凋零默认禁用。
 
-### 指令说明
+### 指令说明 (需要管理员2级及以上)
 
 模组新增了 `/setleavesdecay` 指令，用于切换树叶的凋零状态：
 
