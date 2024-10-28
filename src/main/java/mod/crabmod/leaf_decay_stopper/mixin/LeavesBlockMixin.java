@@ -17,7 +17,7 @@ public class LeavesBlockMixin {
   @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true, remap = false)
   public void onRandomTick(
       BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
-    if (!Config.DECAY_ENABLED.get()) {
+    if (!Config.isDecayEnabledForDimension(world)) {
       ci.cancel();
     }
   }

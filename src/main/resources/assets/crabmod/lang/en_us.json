@@ -1,4 +1,6 @@
 {
-  "command.leaf_decay.enabled": "Leaf decay is now enabled.",
-  "command.leaf_decay.disabled": "Leaf decay is now disabled."
+  "command.leaf_decay.already_enabled": "Leaf decay is already enabled for this dimension.",
+  "command.leaf_decay.already_disabled": "Leaf decay is already disabled for this dimension.",
+  "command.leaf_decay.enabled": "Leaf decay is now enabled for this dimension.",
+  "command.leaf_decay.disabled": "Leaf decay is now disabled for this dimension."
 }

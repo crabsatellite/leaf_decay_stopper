@@ -1,4 +1,6 @@
 {
-  "command.leaf_decay.enabled": "树叶凋零已启用。",
-  "command.leaf_decay.disabled": "树叶凋零已禁用。"
+  "command.leaf_decay.already_enabled": "当前维度树叶凋零已经是启用的了。",
+  "command.leaf_decay.already_disabled": "当前维度树叶凋零已经是禁用的了。",
+  "command.leaf_decay.enabled": "当前维度树叶凋零已启用。",
+  "command.leaf_decay.disabled": "当前维度树叶凋零已禁用。"
 }
