@@ -15,7 +15,7 @@ The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimen
 The mod introduces a command, `/setleavesdecay`, to toggle leaf decay status:
 
 ```
-/setleavesdecay <dimension> <enabled>
+/setleavesdecay [dimension] [enabled]
 ```
 
 #### Parameters
@@ -88,7 +88,7 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 模组新增了 `/setleavesdecay` 指令，用于切换树叶的凋零状态：
 
 ```
-/setleavesdecay <dimension> <enabled>
+/setleavesdecay [dimension] [enabled]
 ```
 
 #### 参数说明
