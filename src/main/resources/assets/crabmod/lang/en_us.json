@@ -1,0 +1,4 @@
+{
+  "command.leaf_decay.enabled": "Leaf decay is now enabled.",
+  "command.leaf_decay.disabled": "Leaf decay is now disabled."
+}

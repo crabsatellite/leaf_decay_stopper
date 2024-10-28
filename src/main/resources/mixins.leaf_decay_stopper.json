@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "mod.crabmod.leaf_decay_stopper.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "LeavesBlockMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
