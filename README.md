@@ -1,3 +1,9 @@
+[![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/nQpq2rAA)
+
+[![GitHub](https://img.shields.io/badge/Source%20Code-GitHub-181717?logo=github&logoColor=white)](https://github.com/crabsatellite/leaf_decay_stopper)
+
+[![Mod Download](https://img.shields.io/badge/Download-Mod-FFB119?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper)
+
 ## Leaf Decay Stopper Mod
 
 ### Overview
