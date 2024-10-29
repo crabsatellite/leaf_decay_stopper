@@ -7,7 +7,7 @@
 ## Leaf Decay Stopper Mod (Developing. Currently tested on Forge 1.20.1-47.3.0)
 
 ### Overview
-The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimensions in Minecraft. This mod enables or disables leaf decay within specific dimensions through commands, allowing players to keep leaves intact for landscaping or decorative purposes. By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.
+The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimensions in Minecraft. This mod enables or disables leaf decay within specific dimensions through commands, allowing players to keep leaves intact for landscaping or decorative purposes. <span style="color:red;">By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.</span>
 
 ### Features
 
