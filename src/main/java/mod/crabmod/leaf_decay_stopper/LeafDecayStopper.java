@@ -2,17 +2,18 @@ package mod.crabmod.leaf_decay_stopper;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -23,25 +24,35 @@ public class LeafDecayStopper {
   // Directly reference a slf4j logger
   private static final Logger LOGGER = LogUtils.getLogger();
 
-  public LeafDecayStopper(FMLJavaModLoadingContext context) {
-    IEventBus modEventBus = context.getModEventBus();
-
+  public LeafDecayStopper(IEventBus modEventBus, ModContainer modContainer) {
     // Register the commonSetup method for modloading
     modEventBus.addListener(this::commonSetup);
 
     // Register ourselves for server and other game events we are interested in
-    MinecraftForge.EVENT_BUS.register(this);
+    NeoForge.EVENT_BUS.register(this);
 
     // Register the item to a creative tab
     modEventBus.addListener(this::addCreative);
 
-    // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-    context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    // Register config event listener
+    modEventBus.addListener(Config::onLoad);
+
+    // Register client setup event listener
+    modEventBus.addListener(this::clientSetup);
+
+    // Register our mod's ModConfigSpec so that NeoForge can create and load the config file for us
+    modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
     // Some common setup code
     LOGGER.info("HELLO FROM COMMON SETUP");
+  }
+
+  private void clientSetup(final FMLClientSetupEvent event) {
+    // Some client setup code
+    LOGGER.info("HELLO FROM CLIENT SETUP");
+    LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
   }
 
   // Add the crabmod block item to the building blocks tab
@@ -54,15 +65,5 @@ public class LeafDecayStopper {
     LOGGER.info("HELLO from server starting");
   }
 
-  // You can use EventBusSubscriber to automatically register all static methods in the class
-  // annotated with @SubscribeEvent
-  @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-  public static class ClientModEvents {
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event) {
-      // Some client setup code
-      LOGGER.info("HELLO FROM CLIENT SETUP");
-      LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
-    }
-  }
+  // Client setup is now handled in the constructor via modEventBus
 }
