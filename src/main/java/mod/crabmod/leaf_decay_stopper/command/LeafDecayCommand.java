@@ -87,8 +87,9 @@ public class LeafDecayCommand {
       dimensionsWithoutDecay.add(dimension.toString());
     }
 
-    // Update the configuration (NeoForge will auto-save SERVER configs)
+    // Update and save the configuration
     Config.DIMENSIONS_WITHOUT_DECAY.set(dimensionsWithoutDecay);
+    Config.SPEC.save();
 
     // Send feedback after updating the state
     context

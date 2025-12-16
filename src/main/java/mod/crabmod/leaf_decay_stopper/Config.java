@@ -1,16 +1,13 @@
 package mod.crabmod.leaf_decay_stopper;
 
-import com.mojang.logging.LogUtils;
 import java.util.List;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import org.slf4j.Logger;
 
 public class Config {
-  private static final Logger LOGGER = LogUtils.getLogger();
   private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
   public static final ModConfigSpec SPEC;
 
@@ -29,9 +26,7 @@ public class Config {
   }
 
   public static void onLoad(final ModConfigEvent event) {
-    // Configuration loaded event
-    LOGGER.info("Loaded leaf decay config: dimensions without decay = {}", 
-        DIMENSIONS_WITHOUT_DECAY.get());
+    // Configuration loaded event, no additional setup required here
   }
 
   /**

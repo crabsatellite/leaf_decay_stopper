@@ -41,8 +41,7 @@ public class LeafDecayStopper {
     modEventBus.addListener(this::clientSetup);
 
     // Register our mod's ModConfigSpec so that NeoForge can create and load the config file for us
-    // Use SERVER type since leaf decay logic only runs on server side
-    modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+    modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
