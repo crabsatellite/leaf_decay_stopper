@@ -9,6 +9,7 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -23,8 +24,8 @@ public class LeafDecayStopper {
   // Directly reference a slf4j logger
   private static final Logger LOGGER = LogUtils.getLogger();
 
-  public LeafDecayStopper(FMLJavaModLoadingContext context) {
-    IEventBus modEventBus = context.getModEventBus();
+  public LeafDecayStopper() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
     // Register the commonSetup method for modloading
     modEventBus.addListener(this::commonSetup);
@@ -36,7 +37,7 @@ public class LeafDecayStopper {
     modEventBus.addListener(this::addCreative);
 
     // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
-    context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
   }
 
   private void commonSetup(final FMLCommonSetupEvent event) {
