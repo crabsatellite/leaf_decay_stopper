@@ -27,9 +27,19 @@ public class Config {
     SPEC = BUILDER.build();
   }
 
+  private static LiveConfigReload liveReload;
+
   @SubscribeEvent
-  static void onLoad(final ModConfigEvent event) {
-    // Configuration loaded event, no additional setup required here
+  static void onLoad(final ModConfigEvent.Loading event) throws java.io.IOException {
+    if (event.getConfig().getSpec() == SPEC) liveReload = new LiveConfigReload(event.getConfig());
+  }
+
+  @SubscribeEvent
+  static void onUnload(final ModConfigEvent.Unloading event) throws java.io.IOException {
+    if (event.getConfig().getSpec() == SPEC && liveReload != null) {
+      liveReload.close();
+      liveReload = null;
+    }
   }
 
   /**
