@@ -1,166 +1,134 @@
-[![Discord](https://img.shields.io/badge/Join-Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/nQpq2rAA)
+# Leaf Decay Stopper
 
-[![GitHub](https://img.shields.io/badge/Source%20Code-GitHub-181717?logo=github&logoColor=white)](https://github.com/CrabMods/leaf_decay_stopper)
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper) · [Modrinth](https://modrinth.com/mod/leaf-decay-stopper) · [GitHub releases](https://github.com/CrabMods/leaf_decay_stopper/releases) · [Report a bug](https://github.com/CrabMods/leaf_decay_stopper/issues)
 
-[![Mod Download](https://img.shields.io/badge/Download-Mod-FFB119?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper)
+[English](#english) · [中文](#中文)
 
-[![Modrinth](https://img.shields.io/badge/Modrinth-Leaf%20Decay%20Stopper-1bd96a)](https://modrinth.com/mod/leaf-decay-stopper)
+## English
 
-## Leaf Decay Stopper
+Keep leaves from decaying in your builds, with separate settings for each dimension. By default, leaves are protected in the Overworld, Nether and End. Crop growth and other blocks' random ticks continue normally.
 
-Supports **Minecraft 1.20.1 / Forge** and **Minecraft 1.21.1 / NeoForge**.
+### Versions and installation
 
-### Overview
-The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimensions in Minecraft. This mod enables or disables leaf decay within specific dimensions through commands, allowing players to keep leaves intact for landscaping or decorative purposes. <span style="color:red;">By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.</span>
+Current release: **1.0.1**.
 
-### Features
+| Minecraft | Loader |
+| --- | --- |
+| 1.20.1 | Forge |
+| 1.21.1 | NeoForge |
 
-- **Dimension-Specific Control**: Choose if leaves decay independently in each dimension, including custom dimensions.
-- **Command-Based**: Set leaf decay dynamically with simple in-game commands.
-- **Instant Feedback**: Immediate feedback lets you know if your desired state has been set.
-- **Default Decay Control**: By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.
+Download the file for your Minecraft version and loader, then put it in the `mods` folder.
 
-### Commands (OP level 2 needed)
+- **Multiplayer:** install it on the server. Players do not need to install it on their clients.
+- **Singleplayer:** install it in your client instance. Enable cheats to use the command.
 
-The mod introduces a command, `/setleavesdecay`, to toggle leaf decay status:
+Installing the mod only on a client does not change leaf decay on a remote server.
 
-```
-/setleavesdecay [dimension] [enabled]
-```
+### Commands
 
-#### Parameters
+Protect leaves in the Overworld:
 
-- **dimension**: The name of the target dimension (e.g., `minecraft:overworld`), with auto-completion suggestions available.
-- **enabled**: Boolean (`true` to enable leaf decay, `false` to disable it).
-
-#### Example Usage
-
-- Enable leaf decay in the Overworld:
-  ```
-  /setleavesdecay minecraft:overworld true
-  ```
-
-- Disable leaf decay in the Overworld:
-  ```
-  /setleavesdecay minecraft:overworld false
-  ```
-
-#### Execution Feedback
-After execution, the player receives feedback on whether the leaf decay status has been updated for the target dimension. If the current decay status already matches the setting, the command will notify you.
-
-### Installation & Configuration
-
-1. **Download the Mod**: Choose the file matching your Minecraft version and loader (Forge or NeoForge).
-2. **Install the loader**: Use Forge for 1.20.1 or NeoForge for 1.21.1.
-3. **Place the Mod File**: Place the mod file in the `mods` folder.
-4. **Launch Game**: Run Minecraft and enter your world.
-
-### Configuration File
-
-Install the mod on the server for multiplayer; players do not need it on their clients. Install it in your client instance for singleplayer. Client-only installation does not change a remote server. Commands require operator level 2, or cheats enabled in singleplayer.
-
-Settings are stored in `config/leaf_decay_stopper-common.toml` and apply to the instance, including all its singleplayer saves. Manual saves reload live. Use full dimension IDs, such as `minecraft:overworld`; an empty `dimensionsWithoutDecay = []` allows normal leaf decay everywhere.
-
-The mod generates a configuration file where you can adjust each dimension’s leaf decay status manually if needed. Alternatively, players can use commands to update the configuration dynamically, and changes will be saved automatically.
-
-### Why This Mod?
-
-Ever built a stunning leaf-decorated structure in a custom dimension only to watch your hard work vanish? Or maybe you brought a massive map from another world and need an easier solution than setting individual block persistence with WorldEdit?
-
-Interestingly, there was no mod for recent versions focused on preserving leaf blocks instead of speeding up their decay. So we spent an afternoon developing *Leaf Decay Stopper* to use on our own server and decided to share it.
-
-If you spot any bugs, please let us know! This mod supports Minecraft 1.20.1 with Forge and Minecraft 1.21.1 with NeoForge.
-
----
-
-### For developers and Advanced Users
-
-For developers interested in how this mod achieves its functionality, here is an overview of the implementation:
-
-The mod uses a Mixin on `LeavesBlock` to intercept the `randomTick` method, which controls the leaf decay mechanism. The `randomTick` event is only allowed to proceed if decay is enabled in the specific dimension. Otherwise, the event is canceled, preventing decay. 
-
-#### Potential Limitations
-
-- **Mod Compatibility**: Some mods that modify `LeavesBlock` behavior might conflict with this Mixin approach if they also rely on `randomTick` for leaf manipulation.
-
-This solution is simple, efficient for our purpose, and can be modified to accommodate further changes if needed for different gameplay contexts.
-
-## Leaf Decay Stopper 模组
-
-### 简介
-Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶是否凋零。此模组支持在游戏中使用指令，快速启用或禁用特定维度的树叶凋零效果，使树叶能够保留在理想位置以用于景观或装饰。默认情况下，该模组禁用了主世界（Overworld）、下界（Nether）和末地（End）的树叶凋零。
-
-### 功能
-
-- **维度级别的凋零控制**：可以独立控制每个维度的树叶是否凋零，包括自定义维度。
-- **基于指令的操作**：使用简便的指令即可动态设置树叶的凋零状态。
-- **即时反馈**：指令执行后立即获得反馈，显示当前状态是否已更改。
-- **默认状态**：主世界、下界和末地维度中的树叶凋零默认禁用。
-
-### 指令说明 (需要管理员2级及以上)
-
-模组新增了 `/setleavesdecay` 指令，用于切换树叶的凋零状态：
-
-```
-/setleavesdecay [dimension] [enabled]
+```text
+/setleavesdecay minecraft:overworld false
 ```
 
-#### 参数说明
+Allow normal leaf decay again:
 
-- **dimension**：目标维度的名称（例如 `minecraft:overworld`），支持自动补全建议。
-- **enabled**：布尔值，`true` 表示启用树叶凋零，`false` 表示禁用。
+```text
+/setleavesdecay minecraft:overworld true
+```
 
-#### 示例用法
+`false` stops decay; `true` allows it. Replace `minecraft:overworld` with another loaded dimension's ID, including a custom dimension. Tab completion lists the available dimensions. Server players need operator permission level 2; the server console can also run the command.
 
-- 启用主世界的树叶凋零：
-  ```
-  /setleavesdecay minecraft:overworld true
-  ```
+Changes take effect immediately and are saved to the config file. Leaves that have already decayed are not restored.
 
-- 禁用主世界的树叶凋零：
-  ```
-  /setleavesdecay minecraft:overworld false
-  ```
+### Configuration
 
-#### 执行反馈
-指令执行后，玩家会收到反馈提示，显示目标维度的树叶凋零状态是否已更新。如当前凋零状态已与设置一致，指令会提示已处于该状态。
+The mod creates `config/leaf_decay_stopper-common.toml` when it first runs. The default setting is:
 
-### 安装与配置
+```toml
+dimensionsWithoutDecay = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+```
 
-1. **下载模组**：选择与 Minecraft 版本和加载器（Forge 或 NeoForge）匹配的文件。
-2. **安装加载器**：1.20.1 使用 Forge，1.21.1 使用 NeoForge。
-3. **放置模组文件**：将模组文件放入 `mods` 文件夹。
-4. **启动游戏**：运行 Minecraft 并进入世界。
+Leaves are protected in the listed dimensions. Dimensions outside the list use normal decay. To allow decay everywhere, use:
+
+```toml
+dimensionsWithoutDecay = []
+```
+
+Use full dimension IDs, such as `minecraft:overworld` or `yourmod:your_dimension`. Save the file to apply changes without restarting.
+
+The config belongs to the server or client instance, rather than an individual world. In singleplayer, the same settings apply to every save opened in that instance. Command changes update this shared config too.
+
+### Compatibility and bug reports
+
+Vanilla leaves and representative Biomes O' Plenty leaves have been tested. Mods that replace the normal leaf-decay behavior may need a separate compatibility check.
+
+If something goes wrong, [open an issue](https://github.com/CrabMods/leaf_decay_stopper/issues) with your Minecraft version, loader version, mod version and what happened. For a crash or modpack-specific problem, include `logs/latest.log`, the crash report if there is one, and the modpack name and version.
+
+### Changes in 1.0.1
+
+Fixed dimension validation and config handling, repaired Forge config hot reload, and corrected older Forge startup compatibility and update information. See the [release notes](docs/releases/1.0.1.md) for the full list.
+
+## 中文
+
+让建筑和景观中的树叶保持原样，并按维度决定是否允许自然凋零。默认保护主世界、下界和末地的树叶，不影响作物生长和其他方块的随机刻更新。
+
+### 版本与安装
+
+当前版本：**1.0.1**。Minecraft **1.20.1 使用 Forge**，**1.21.1 使用 NeoForge**。下载对应文件，放入 `mods` 文件夹。
+
+- **多人游戏：**安装在服务端即可，玩家客户端不必安装。
+- **单人游戏：**安装在自己的游戏实例中。使用指令需要开启作弊。
+
+只在客户端安装，无法改变远程服务器上的树叶凋零规则。
+
+### 指令
+
+保护主世界的树叶：
+
+```text
+/setleavesdecay minecraft:overworld false
+```
+
+恢复主世界的正常树叶凋零：
+
+```text
+/setleavesdecay minecraft:overworld true
+```
+
+`false` 表示停止凋零，`true` 表示允许凋零。将 `minecraft:overworld` 换成其他已加载维度的 ID，就能调整对应维度，也支持自定义维度。输入时可以用 Tab 补全。服务器玩家需要 OP 2 级权限，也可以从服务端控制台执行。
+
+修改立即生效，并自动写入配置文件。已经凋零的树叶不会恢复。
 
 ### 配置文件
 
-模组会自动生成配置文件，允许手动调整每个维度的树叶凋零状态。玩家也可以使用指令动态更新配置，更新的状态将自动保存。
+首次运行后会生成 `config/leaf_decay_stopper-common.toml`，默认内容如下：
 
-### 为什么需要这个模组？
+```toml
+dimensionsWithoutDecay = ["minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"]
+```
 
-你是否曾在自定义维度中精心打造了一个装饰性叶子结构，却眼睁睁看着树叶逐渐凋零消失？或者将一大片地图导入后，发现要用 WorldEdit 为每片叶子设置持久状态十分繁琐？在 WorldEdit 中使叶子持久化，需要手动修改每个叶块的元数据，这对大规模建筑来说不仅麻烦，还可能导致性能问题。
+列表中的维度会受到保护，其他维度保持正常凋零。若希望所有维度都恢复正常凋零，将列表留空：
 
-调整 randomTickSpeed 为 0 确实可以阻止叶子凋零，但这会影响作物生长和其他需要随机刻更新的元素，效果欠佳。此外，近期也没有直接关注叶子保留的模组，多数模组更偏向加速凋零速度，因此可用的选项十分有限。所以，我们开发了 Leaf Decay Stopper 来解决这些问题。这个模组无需逐一更改方块或完全禁用随机刻更新，可以有效保留树叶，非常适合需要保持植被美观的建筑师和景观设计者。
+```toml
+dimensionsWithoutDecay = []
+```
 
-支持 Minecraft 1.20.1（Forge）和 1.21.1（NeoForge）。如果发现 bug，欢迎反馈。
+请使用完整的维度 ID，例如 `minecraft:overworld` 或 `yourmod:your_dimension`。手动修改文件后保存即可生效，无需重启。
 
----
+配置属于整个服务端或游戏实例，不是某个存档的独立设置。单人游戏中，同一实例下的所有存档共用这份配置；指令也会修改这份配置。
 
-### 实现方法和可能的限制
+### 兼容性与问题反馈
 
-对于有兴趣了解实现方式的开发者，这里概述了该模组的主要实现思路：
+已测试原版树叶和 Biomes O' Plenty 的部分树叶。若其他模组替换了原本的树叶凋零逻辑，需要单独确认兼容性。
 
-模组使用了 `LeavesBlock` 的 Mixin，以拦截控制树叶凋零的 `randomTick` 方法。只有当目标维度的配置允许凋零时，`randomTick` 事件才会继续执行。否则，事件将被取消，从而阻止树叶凋零
+遇到问题时，请在 [Issues](https://github.com/CrabMods/leaf_decay_stopper/issues) 中说明 Minecraft、加载器和本模组的版本，以及具体发生了什么。如果是崩溃或整合包中的问题，请附上 `logs/latest.log`、崩溃报告（如有），以及整合包名称和版本。
 
-#### 可能的限制
+### 1.0.1 更新
 
-- **模组兼容性**：一些修改 `LeavesBlock` 行为的模组可能会与此 Mixin 实现存在冲突，特别是在依赖 `randomTick` 进行叶子操作时。
+修复了维度检查和配置处理问题、Forge 配置热重载、旧版 Forge 的启动兼容性，以及更新信息。完整列表见[更新说明](docs/releases/1.0.1.md)。
 
-此解决方案简单高效，适合我们当前的需求，并可在不同场景下灵活调整。
+## License / 许可证
 
-
-### License / 许可证
-
-The Forge and NeoForge versions are licensed under **GPL-3.0**. See [LICENSE](LICENSE).
-
-Forge 和 NeoForge 版本统一采用 **GPL-3.0**，详见 [LICENSE](LICENSE)。
+Both versions use [GPL-3.0](LICENSE). Forge 和 NeoForge 版本均采用 GPL-3.0。
