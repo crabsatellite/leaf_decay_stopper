@@ -168,3 +168,19 @@ idea {
         downloadJavadoc = true
     }
 }
+
+// Native regression tests are a separate development mod and never enter the production JAR.
+sourceSets {
+    gameTest {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+        def outputDirectory = layout.buildDirectory.dir('sourceSets/gameTest').get().asFile
+        output.resourcesDir = outputDirectory
+        java.destinationDirectory = outputDirectory
+    }
+}
+configurations.gameTestImplementation.extendsFrom(configurations.implementation)
+configurations.gameTestCompileOnly.extendsFrom(configurations.compileOnly)
+configurations.gameTestRuntimeOnly.extendsFrom(configurations.runtimeOnly)
+tasks.named('check') { dependsOn tasks.named('gameTestClasses') }
+runs.gameTestServer { modSources { add('leaf_decay_stopper_tests', sourceSets.gameTest) } }
