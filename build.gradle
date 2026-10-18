@@ -231,3 +231,8 @@ configurations.gameTestCompileOnly.extendsFrom(configurations.compileOnly)
 configurations.gameTestRuntimeOnly.extendsFrom(configurations.runtimeOnly)
 tasks.named('check') { dependsOn tasks.named('gameTestClasses') }
 minecraft.runs.gameTestServer { mods { leaf_decay_stopper_tests { source sourceSets.gameTest } } }
+
+// Keep the update-document contract test portable without packaging fixtures in the mod.
+tasks.named('processGameTestResources', ProcessResources).configure {
+    from('updates.json') { into 'validation' }
+}
