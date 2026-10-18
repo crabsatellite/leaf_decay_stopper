@@ -1,31 +1,55 @@
 # Leaf Decay Stopper
 
-Stop natural leaf decay per dimension while other blocks keep their normal random ticks. The Overworld, Nether and End are protected by default.
+<img src="https://raw.githubusercontent.com/CrabMods/leaf_decay_stopper/forge-1.20.1-47.3.11/images/logo_512.png" width="128" alt="Leaf Decay Stopper icon">
 
-[Download: CurseForge](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper) · [Modrinth](https://modrinth.com/mod/leaf-decay-stopper) · [Full guide](https://crabmods.com/mods/leafdecay) · [Releases](https://github.com/CrabMods/leaf_decay_stopper/releases)
+[CurseForge](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper) · [Modrinth](https://modrinth.com/mod/leaf-decay-stopper) · [GitHub releases](https://github.com/CrabMods/leaf_decay_stopper/releases) · [Report a bug](https://github.com/CrabMods/leaf_decay_stopper/issues)
 
-## Install and use
+Keep leaves from decaying in your builds, with separate settings for each dimension. By default, leaves are protected in the Overworld, Nether and End. Crop growth and other blocks' random ticks continue normally.
 
-- Forge 1.20.1 / Java 17 or NeoForge 1.21.1 / Java 21; download the matching build.
-- Multiplayer: install on the server; clients do not need it.
-- Singleplayer: install in the client instance.
+> **Full player guide:** For advanced features, complete recipes, detailed effects, configuration and compatibility, visit the [official Leaf Decay Stopper guide](https://crabmods.com/mods/leafdecay).
 
-Protect Overworld leaves:
+## Versions and installation
+
+| Minecraft | Loader |
+| --- | --- |
+| 1.20.1 | Forge |
+| 1.21.1 | NeoForge |
+
+Download the file for your Minecraft version and loader, then put it in the `mods` folder.
+
+- **Multiplayer:** install it on the server. Players do not need to install it on their clients.
+- **Singleplayer:** install it in your client instance. Enable cheats to use the command.
+
+Installing the mod only on a client does not change leaf decay on a remote server.
+
+## Commands
+
+Protect leaves in the Overworld:
 
 ```text
 /setleavesdecay minecraft:overworld false
 ```
 
-Use `true` to allow decay. Commands require operator level 2 or singleplayer cheats. Changes save to the instance-wide config; already-decayed leaves are not restored.
+Allow normal leaf decay again:
 
-[Configuration, custom dimensions and compatibility](https://crabmods.com/mods/leafdecay) · [Report an issue](https://github.com/CrabMods/leaf_decay_stopper/issues)
+```text
+/setleavesdecay minecraft:overworld true
+```
 
-## 中文
+`false` stops decay; `true` allows it. Replace `minecraft:overworld` with another loaded dimension's ID, including a custom dimension. Tab completion lists the available dimensions. Server players need operator permission level 2; the server console can also run the command.
 
-按维度关闭树叶自然凋零，不影响其他方块的随机刻。默认保护主世界、下界和末地。
+Changes take effect immediately and are saved to the config file. Leaves that have already decayed are not restored.
 
-多人游戏安装在服务器即可，单人游戏安装在客户端实例中。选择匹配的 Forge 1.20.1 / Java 17 或 NeoForge 1.21.1 / Java 21 文件。
+## Compatibility and Bug Reports
 
-`/setleavesdecay minecraft:overworld false` 保护主世界树叶，改成 `true` 恢复自然凋零。需要权限等级 2，单人需开启作弊。设置保存在实例共用配置中，不会恢复已凋零的树叶。
+Protection applies to leaves using vanilla's normal leaf random-tick path. Other blocks keep their usual random ticks; mods with a separate decay implementation need a compatibility check.
 
-[完整指南：配置、自定义维度与兼容](https://crabmods.com/mods/leafdecay)。
+The settings belong to the server or client instance, rather than an individual world. In singleplayer, the same settings apply to every save opened in that instance.
+
+## More details
+
+For more advanced features, full recipes, effect values, configuration and compatibility help, see the **[official player guide](https://crabmods.com/mods/leafdecay)**.
+
+[Downloads and release notes](https://github.com/CrabMods/leaf_decay_stopper/releases) · [Report a bug](https://github.com/CrabMods/leaf_decay_stopper/issues)
+
+License: [GPL-3.0](LICENSE).
