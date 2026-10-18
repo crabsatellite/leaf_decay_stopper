@@ -159,8 +159,8 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 此解决方案简单高效，适合我们当前的需求，并可在不同场景下灵活调整。
 
 
-### Build licenses / 构建许可证
+### License / 许可证
 
-The Forge build declares GPL-3.0; the NeoForge build declares MIT. These existing declarations are preserved in each build's mod metadata.
+The Forge and NeoForge versions are licensed under **GPL-3.0**. See [LICENSE](LICENSE).
 
-Forge 构建声明 GPL-3.0，NeoForge 构建声明 MIT；各构建中的既有声明保持不变。
+Forge 和 NeoForge 版本统一采用 **GPL-3.0**，详见 [LICENSE](LICENSE)。
