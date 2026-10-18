@@ -1,15 +1,17 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper",
   "1.20.1": {
-    "1.0.0": "Initial release for Minecraft 1.20.1."
+    "1.0.0": "Initial release for Minecraft 1.20.1.",
+    "1.0.1": "Fixed duplicate dimension toggles, dimension validation and suggestions, live config reload, older Forge startup, and update information."
   },
   "1.21.1": {
-    "1.0.0": "Initial release for Minecraft 1.21.1."
+    "1.0.0": "Initial release for Minecraft 1.21.1.",
+    "1.0.1": "Fixed duplicate dimension toggles, dimension validation and suggestions, live config reload, older Forge startup, and update information."
   },
   "promos": {
-    "1.20.1-latest": "1.0.0",
-    "1.20.1-recommended": "1.0.0",
-    "1.21.1-latest": "1.0.0",
-    "1.21.1-recommended": "1.0.0"
+    "1.20.1-latest": "1.0.1",
+    "1.20.1-recommended": "1.0.1",
+    "1.21.1-latest": "1.0.1",
+    "1.21.1-recommended": "1.0.1"
   }
 }
