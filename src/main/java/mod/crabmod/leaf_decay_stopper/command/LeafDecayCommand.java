@@ -3,33 +3,21 @@ package mod.crabmod.leaf_decay_stopper.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.suggestion.SuggestionProvider;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import mod.crabmod.leaf_decay_stopper.Config;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.DimensionArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber
 public class LeafDecayCommand {
-
-  // Suggestion provider for dimension names
-  private static final SuggestionProvider<CommandSourceStack> DIMENSION_SUGGESTION_PROVIDER =
-      (context, builder) -> {
-        // Provide dimension suggestions only when "dimension" parameter is being input
-        for (ResourceKey<Level> dimension : context.getSource().getServer().levelKeys()) {
-          builder.suggest(dimension.location().toString());
-        }
-        return builder.buildFuture();
-      };
 
   @SubscribeEvent
   public static void onRegisterCommands(RegisterCommandsEvent event) {
@@ -39,18 +27,16 @@ public class LeafDecayCommand {
         Commands.literal("setleavesdecay")
             .requires(source -> source.hasPermission(2))
             .then(
-                Commands.argument(
-                        "dimension",
-                        ResourceLocationArgument
-                            .id()) // Parse namespace using ResourceLocationArgument
-                    .suggests(DIMENSION_SUGGESTION_PROVIDER) // Add dimension name autocomplete
+                Commands.argument("dimension", DimensionArgument.dimension())
                     .then(
                         Commands.argument("enabled", BoolArgumentType.bool())
                             .executes(LeafDecayCommand::executeToggleLeafDecay))));
   }
 
-  private static int executeToggleLeafDecay(CommandContext<CommandSourceStack> context) {
-    ResourceLocation dimension = ResourceLocationArgument.getId(context, "dimension");
+  private static int executeToggleLeafDecay(CommandContext<CommandSourceStack> context)
+      throws CommandSyntaxException {
+    ResourceLocation dimension =
+        DimensionArgument.getDimension(context, "dimension").dimension().location();
     boolean enabled = BoolArgumentType.getBool(context, "enabled");
 
     // Create a mutable list to modify dimensions without leaf decay

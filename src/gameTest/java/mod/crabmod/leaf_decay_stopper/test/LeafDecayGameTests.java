@@ -57,4 +57,72 @@ public final class LeafDecayGameTests {
     }
     helper.succeed();
   }
+
+  @GameTest(templateNamespace = "leaf_decay_stopper", template = "empty", timeoutTicks = 20)
+  public static void unknown_dimension_is_rejected(GameTestHelper helper) throws Exception {
+    var level = helper.getLevel();
+    var original = new ArrayList<>(Config.DIMENSIONS_WITHOUT_DECAY.get());
+    var source = level.getServer().createCommandSourceStack();
+    boolean rejected = false;
+    try {
+      try {
+        level.getServer().getCommands().getDispatcher().execute(
+            "setleavesdecay leaf_decay_stopper:missing false", source);
+      } catch (com.mojang.brigadier.exceptions.CommandSyntaxException expected) {
+        rejected = true;
+      }
+      helper.assertTrue(rejected, "An unknown dimension must return an error");
+      helper.assertTrue(Config.DIMENSIONS_WITHOUT_DECAY.get().equals(original), "A rejected command must not change configuration");
+    } finally {
+      Config.DIMENSIONS_WITHOUT_DECAY.set(original);
+      Config.SPEC.save();
+    }
+    helper.succeed();
+  }
+
+  @GameTest(templateNamespace = "leaf_decay_stopper", template = "empty", timeoutTicks = 20)
+  public static void loaded_custom_dimension_can_be_toggled(GameTestHelper helper) throws Exception {
+    var server = helper.getLevel().getServer();
+    var key = net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,
+        new net.minecraft.resources.ResourceLocation("leaf_decay_stopper:validation"));
+    var target = server.getLevel(key);
+    helper.assertTrue(target != null, "The custom test dimension must be loaded");
+    var pos = new BlockPos(0, 100, 0);
+    var originalBlock = target.getBlockState(pos);
+    var originalConfig = new ArrayList<>(Config.DIMENSIONS_WITHOUT_DECAY.get());
+    boolean originalDrops = target.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS);
+    try {
+      target.getGameRules().getRule(GameRules.RULE_DOBLOCKDROPS).set(false, server);
+      var source = server.createCommandSourceStack();
+      var dispatcher = server.getCommands().getDispatcher();
+      dispatcher.execute("setleavesdecay leaf_decay_stopper:validation false", source);
+      helper.assertTrue(!Config.isDecayEnabledForDimension(target), "Custom dimension must be disabled");
+      var leaves = Blocks.OAK_LEAVES.defaultBlockState().setValue(LeavesBlock.DISTANCE, 7)
+          .setValue(LeavesBlock.PERSISTENT, false);
+      target.setBlock(pos, leaves, 3);
+      leaves.randomTick(target, pos, RandomSource.create(123));
+      helper.assertTrue(target.getBlockState(pos).is(Blocks.OAK_LEAVES), "Disabled custom dimension must preserve leaves");
+      dispatcher.execute("setleavesdecay leaf_decay_stopper:validation true", source);
+      leaves.randomTick(target, pos, RandomSource.create(123));
+      helper.assertTrue(target.getBlockState(pos).isAir(), "Enabled custom dimension must allow decay");
+      helper.assertTrue(Config.isDecayEnabledForDimension(helper.getLevel()) ==
+          !originalConfig.contains("minecraft:overworld"), "Another dimension must not change");
+    } finally {
+      Config.DIMENSIONS_WITHOUT_DECAY.set(originalConfig);
+      Config.SPEC.save();
+      target.setBlock(pos, originalBlock, 3);
+      target.getGameRules().getRule(GameRules.RULE_DOBLOCKDROPS).set(originalDrops, server);
+    }
+    helper.succeed();
+  }
+
+  @GameTest(templateNamespace = "leaf_decay_stopper", template = "empty", timeoutTicks = 20)
+  public static void dimension_completions_respect_prefix(GameTestHelper helper) throws Exception {
+    var source = helper.getLevel().getServer().createCommandSourceStack();
+    var dispatcher = helper.getLevel().getServer().getCommands().getDispatcher();
+    var values = dispatcher.getCompletionSuggestions(dispatcher.parse("setleavesdecay minecraft:o", source))
+        .get().getList().stream().map(s -> s.getText()).sorted().toList();
+    helper.assertTrue(values.equals(List.of("minecraft:overworld")), "Completion must filter the entered dimension prefix");
+    helper.succeed();
+  }
 }
