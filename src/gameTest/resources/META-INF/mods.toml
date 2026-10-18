@@ -1,0 +1,7 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="GPL-3.0"
+[[mods]]
+modId="leaf_decay_stopper_tests"
+version="1.0"
+displayName="Leaf Decay Stopper GameTests"

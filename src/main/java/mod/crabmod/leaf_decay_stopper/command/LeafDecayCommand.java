@@ -82,7 +82,7 @@ public class LeafDecayCommand {
 
     // Perform the actual action
     if (enabled) {
-      dimensionsWithoutDecay.remove(dimension.toString());
+      dimensionsWithoutDecay.removeIf(dimension.toString()::equals);
     } else {
       dimensionsWithoutDecay.add(dimension.toString());
     }
