@@ -16,11 +16,11 @@ public class Config {
   static {
     DIMENSIONS_WITHOUT_DECAY =
         BUILDER
-            .comment("Specify dimensions where leaf decay should be disabled.")
-            .defineList(
+            .comment("Specify dimensions where leaf decay should be disabled. Use namespaced IDs, such as minecraft:overworld.")
+            .defineListAllowEmpty(
                 "dimensionsWithoutDecay",
                 List.of("minecraft:overworld", "minecraft:the_nether", "minecraft:the_end"),
-                obj -> obj instanceof String);
+                Config::isCanonicalDimensionId);
 
     SPEC = BUILDER.build();
   }
@@ -39,5 +39,13 @@ public class Config {
     ResourceLocation dimensionKey = level.dimension().location();
     List<? extends String> dimensionsWithoutDecay = DIMENSIONS_WITHOUT_DECAY.get();
     return !dimensionsWithoutDecay.contains(dimensionKey.toString());
+  }
+
+  private static boolean isCanonicalDimensionId(Object value) {
+    if (!(value instanceof String name)) {
+      return false;
+    }
+    ResourceLocation id = ResourceLocation.tryParse(name);
+    return id != null && name.equals(id.toString());
   }
 }

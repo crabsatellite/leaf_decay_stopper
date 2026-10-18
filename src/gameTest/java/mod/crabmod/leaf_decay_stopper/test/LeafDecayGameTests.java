@@ -125,4 +125,38 @@ public final class LeafDecayGameTests {
     helper.assertTrue(values.equals(List.of("minecraft:overworld")), "Completion must filter the entered dimension prefix");
     helper.succeed();
   }
+
+  @GameTest(template = "empty", timeoutTicks = 20)
+  public static void configuration_rejects_malformed_identifiers(GameTestHelper helper) {
+    for (Object invalid : List.of("Not a valid dimension!", "overworld", "Minecraft:overworld", "minecraft:OVERWORLD", "", 42)) {
+      var candidate = com.electronwill.nightconfig.core.CommentedConfig.inMemory();
+      candidate.set("dimensionsWithoutDecay", List.of(invalid));
+      Config.SPEC.correct(candidate);
+      List<?> corrected = candidate.get("dimensionsWithoutDecay");
+      helper.assertTrue(!corrected.contains(invalid), "Invalid or noncanonical IDs must be corrected: " + invalid);
+    }
+    helper.succeed();
+  }
+
+  @GameTest(template = "empty", timeoutTicks = 20)
+  public static void configuration_preserves_valid_unloaded_ids_and_empty_lists(GameTestHelper helper) {
+    for (List<String> input : List.of(List.<String>of(), List.of("other_mod:sky_realm"),
+        List.of("minecraft:overworld", "other_mod:path/to_level"))) {
+      var candidate = com.electronwill.nightconfig.core.CommentedConfig.inMemory();
+      candidate.set("dimensionsWithoutDecay", new ArrayList<>(input));
+      Config.SPEC.correct(candidate);
+      helper.assertTrue(input.equals(candidate.get("dimensionsWithoutDecay")), "Valid IDs and an empty list must be preserved");
+    }
+    helper.succeed();
+  }
+
+  @GameTest(template = "empty", timeoutTicks = 20)
+  public static void configuration_removes_only_invalid_entries(GameTestHelper helper) {
+    var candidate = com.electronwill.nightconfig.core.CommentedConfig.inMemory();
+    candidate.set("dimensionsWithoutDecay", List.of("minecraft:overworld", "bad id", "other_mod:sky_realm"));
+    Config.SPEC.correct(candidate);
+    helper.assertTrue(List.of("minecraft:overworld", "other_mod:sky_realm").equals(candidate.get("dimensionsWithoutDecay")),
+        "Correcting a mixed list must retain valid IDs in order");
+    helper.succeed();
+  }
 }
