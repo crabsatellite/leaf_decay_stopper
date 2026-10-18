@@ -4,7 +4,11 @@
 
 [![Mod Download](https://img.shields.io/badge/Download-Mod-FFB119?logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/leafdecaystopper)
 
-## Leaf Decay Stopper Mod (Developing. Currently tested on Forge 1.20.1-47.3.0)
+[![Modrinth](https://img.shields.io/badge/Modrinth-Leaf%20Decay%20Stopper-1bd96a)](https://modrinth.com/mod/leaf-decay-stopper)
+
+## Leaf Decay Stopper
+
+Supports **Minecraft 1.20.1 / Forge** and **Minecraft 1.21.1 / NeoForge**.
 
 ### Overview
 The *Leaf Decay Stopper* mod allows players to control leaf decay based on dimensions in Minecraft. This mod enables or disables leaf decay within specific dimensions through commands, allowing players to keep leaves intact for landscaping or decorative purposes. <span style="color:red;">By default, leaf decay is disabled in the Overworld, Nether, and End dimensions.</span>
@@ -46,12 +50,16 @@ After execution, the player receives feedback on whether the leaf decay status h
 
 ### Installation & Configuration
 
-1. **Download the Mod**: Ensure the downloaded mod is compatible with your Minecraft and Forge version.
-2. **Install Forge**: Run the compatible version of Minecraft Forge.
+1. **Download the Mod**: Choose the file matching your Minecraft version and loader (Forge or NeoForge).
+2. **Install the loader**: Use Forge for 1.20.1 or NeoForge for 1.21.1.
 3. **Place the Mod File**: Place the mod file in the `mods` folder.
 4. **Launch Game**: Run Minecraft and enter your world.
 
 ### Configuration File
+
+Install the mod on the server for multiplayer; players do not need it on their clients. Install it in your client instance for singleplayer. Client-only installation does not change a remote server. Commands require operator level 2, or cheats enabled in singleplayer.
+
+Settings are stored in `config/leaf_decay_stopper-common.toml` and apply to the instance, including all its singleplayer saves. Manual saves reload live. Use full dimension IDs, such as `minecraft:overworld`; an empty `dimensionsWithoutDecay = []` allows normal leaf decay everywhere.
 
 The mod generates a configuration file where you can adjust each dimension’s leaf decay status manually if needed. Alternatively, players can use commands to update the configuration dynamically, and changes will be saved automatically.
 
@@ -61,7 +69,7 @@ Ever built a stunning leaf-decorated structure in a custom dimension only to wat
 
 Interestingly, there was no mod for recent versions focused on preserving leaf blocks instead of speeding up their decay. So we spent an afternoon developing *Leaf Decay Stopper* to use on our own server and decided to share it.
 
-If you spot any bugs, please let us know! This mod currently supports only Minecraft version 1.20.1, but if demand grows, we may consider other versions.
+If you spot any bugs, please let us know! This mod supports Minecraft 1.20.1 with Forge and Minecraft 1.21.1 with NeoForge.
 
 ---
 
@@ -119,8 +127,8 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 
 ### 安装与配置
 
-1. **下载模组**：确保下载的模组文件与当前的 Minecraft 和 Forge 版本兼容。
-2. **安装 Forge**：运行相应版本的 Minecraft Forge。
+1. **下载模组**：选择与 Minecraft 版本和加载器（Forge 或 NeoForge）匹配的文件。
+2. **安装加载器**：1.20.1 使用 Forge，1.21.1 使用 NeoForge。
 3. **放置模组文件**：将模组文件放入 `mods` 文件夹。
 4. **启动游戏**：运行 Minecraft 并进入世界。
 
@@ -134,7 +142,7 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 
 调整 randomTickSpeed 为 0 确实可以阻止叶子凋零，但这会影响作物生长和其他需要随机刻更新的元素，效果欠佳。此外，近期也没有直接关注叶子保留的模组，多数模组更偏向加速凋零速度，因此可用的选项十分有限。所以，我们开发了 Leaf Decay Stopper 来解决这些问题。这个模组无需逐一更改方块或完全禁用随机刻更新，可以有效保留树叶，非常适合需要保持植被美观的建筑师和景观设计者。
 
-目前该模组仅支持 Minecraft 1.20.1。如果发现任何 bug，欢迎反馈。如有更多版本需求，我们会考虑支持更多版本。
+支持 Minecraft 1.20.1（Forge）和 1.21.1（NeoForge）。如果发现 bug，欢迎反馈。
 
 ---
 
@@ -149,3 +157,10 @@ Leaf Decay Stopper 模组让玩家能够在 Minecraft 中按维度控制树叶�
 - **模组兼容性**：一些修改 `LeavesBlock` 行为的模组可能会与此 Mixin 实现存在冲突，特别是在依赖 `randomTick` 进行叶子操作时。
 
 此解决方案简单高效，适合我们当前的需求，并可在不同场景下灵活调整。
+
+
+### Build licenses / 构建许可证
+
+The Forge build declares GPL-3.0; the NeoForge build declares MIT. These existing declarations are preserved in each build's mod metadata.
+
+Forge 构建声明 GPL-3.0，NeoForge 构建声明 MIT；各构建中的既有声明保持不变。
